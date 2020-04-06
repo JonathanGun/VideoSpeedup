@@ -10,13 +10,14 @@ import os
 import argparse
 from pytube import YouTube
 import time
+import ntpath
 
 
 def downloadFile(url):
     name = YouTube(url).streams.first().download()
     newname = name.replace(' ', '_')
     os.rename(name, newname)
-    return newname
+    return ntpath.basename(newname)
 
 
 def getMaxVolume(s):
@@ -231,5 +232,5 @@ if __name__ == "__main__":
     main()
     t2 = time.time()
     print()
-    print("Completed in", (t2 - t1) / 1000, "seconds")
+    print("Completed in", t2 - t1, "seconds")
     print()
